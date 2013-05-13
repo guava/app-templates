@@ -4,7 +4,12 @@ create_file "README.md", "TODO"
 gem "rspec-rails", group: [:test, :development]
 gem "shoulda-matchers", group: [:test]
 gem "sorcery"
+gem 'therubyracer'
+gem "less-rails"
+gem 'twitter-bootstrap-rails'
+
 run "bundle install"
+generate "bootstrap:install less"
 generate "rspec:install"
 generate "sorcery:install"
 
@@ -14,6 +19,12 @@ git :init
 append_file ".gitignore", "config/database.yml"
 run "cp config/database.yml config/example_database.yml"
 git add: ".", commit: "-m 'initial commit'"
+
+
+#### ADDING pt-br TRANSLATION ####
+
+get "https://raw.github.com/svenfuchs/rails-i18n/master/rails/locale/pt-BR.yml", "config/locales/pt-BR.yml"
+git add: ".", commit: "-m 'Adding translation files'"
 
 #### REMOVING ./test FOLDER ####
 
