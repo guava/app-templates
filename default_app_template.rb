@@ -6,12 +6,26 @@ gem "shoulda-matchers", group: [:test]
 gem "sorcery"
 gem 'therubyracer'
 gem "less-rails"
-gem 'twitter-bootstrap-rails'
 
 run "bundle install"
-generate "bootstrap:install less"
+
 generate "rspec:install"
 generate "sorcery:install"
+
+css_base = ask('Will it use Zurb Foundation or Twitter Bootstrap? (foundation/bootstrap)')
+
+if css_base[0] == 'b'
+  gem 'twitter-bootstrap-rails'
+  run "bundle install"
+
+  generate "bootstrap:install less"
+else
+  gem 'zurb-foundation'
+  run "bundle install"
+
+  generate 'foundation:install'
+  generate 'foundation:layout'
+end
 
 remove_file "public/index.html"
 
